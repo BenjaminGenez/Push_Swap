@@ -5,3 +5,4 @@
 - [ ] Norminette
 - [ ] pass through testers
 - [ ] fix Makefile
+- [ ] test 2025
