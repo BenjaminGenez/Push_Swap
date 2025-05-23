@@ -22,3 +22,25 @@ void get_cost(t_stack **stack_a, t_stack **stack_b)
         tmp_b = tmp_b->next;
     }
 }
+
+void do_cheapest_move(t_stack **stack_a, t_stack **stack_b)
+{
+    t_stack *tmp;
+    int cheapest;
+    int cost_a;
+    int cost_b;
+
+    tmp = *stack_b;
+    cheapest = 2147483647;
+    while (tmp)
+    {
+        if (nb_abs(tmp->cost_a) + nb_abs(tmp->cost_b) < nb_abs(cheapest))
+        {
+            cheapest = nb_abs(tmp->cost_b) + nb_abs(tmp->cost_a);
+            cost_a = tmp->cost_a;
+            cost_b = tmp->cost_b;
+        }
+        tmp = tmp->next;
+    }
+    do_move(stack_a, stack_b, cost_a, cost_b);
+}
