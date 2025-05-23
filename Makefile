@@ -1,19 +1,37 @@
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CC		= gcc
+CFLAGS	= -Wall -Werror -Wextra
+NAME	= push_swap
 
-SRCS = stack.c push_swap.c
-OBJS = $(SRCS:.c=.o)
-NAME = push_swap
+SRC_PATH = src/
+OBJ_PATH = obj/
 
-all: $(NAME)
+SRC		= main.c \
+		input_checking.c input_checking_util.c \
+		start.c stack.c \
+		swap.c push.c rotate.c reverse_rotate.c \
+		tinysort.c sort.c \
+		position.c cost.c do_move.c \
+		utils.c
+SRCS	= $(addprefix $(SRC_PATH), $(SRC))
+OBJ		= $(SRC:.c=.o)
+OBJS	= $(addprefix $(OBJ_PATH), $(OBJ))
+INCS	= -I ./includes/
+
+all: $(OBJ_PATH) $(NAME) 
+
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	$(CC) $(CFLAGS) -c $< -o $@ $(INCS)
+
+$(OBJ_PATH):
+	mkdir $(OBJ_PATH)
 
 $(NAME): $(OBJS)
-    $(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 clean:
-    rm -f $(OBJS)
+	rm -rf $(OBJ_PATH)
 
 fclean: clean
-    rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
