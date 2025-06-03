@@ -71,6 +71,11 @@ test1000:			$(NAME)
 					./push_swap $(ARG) | ./checker_linux $(ARG)
 					@echo -n "Instructions: "
 					@./push_swap $(ARG) | wc -l
-
+test10:				$(NAME)
+					$(eval ARG = $(shell shuf -i 0-9999 -n 500))
+					@echo "Testing with 100 random numbers:"
+					@./push_swap $(ARG) | ./checker_linux $(ARG)
+					@echo -n "Instructions: "
+					@./push_swap $(ARG) | tee /tmp/push_swap_output | wc -l | awk '{if ($$1 > 5500) print $$1 " ❌ Too many operations!"; else print $$1 " ✅ OK"}'
 
 .PHONY: all clean fclean re test2 test3 test5 test100 test500 test1000
